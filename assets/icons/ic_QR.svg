@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="319" height="334" viewBox="0 0 319 334">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" viewBox="0 0 500 500">
+      <image width="500" height="500" xlink:href="data:image/png;base64,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"/>
+    </pattern>
+  </defs>
+  <g id="Group_11359" data-name="Group 11359" transform="translate(-80.03 -339.074)">
+    <g id="Group_9" data-name="Group 9" transform="translate(80 339)">
+      <path id="qr_code_PNG20" d="M0,0H295.286V295.286H0Z" transform="translate(8.758 22.522)" fill="url(#pattern)"/>
+      <g id="Group_7" data-name="Group 7">
+        <g id="Group_5" data-name="Group 5">
+          <g id="Group_3" data-name="Group 3">
+            <rect id="Rectangle_2" data-name="Rectangle 2" width="34" height="4" transform="translate(4.03 0.074)" fill="#f27111"/>
+            <rect id="Rectangle_3" data-name="Rectangle 3" width="34" height="4" transform="translate(0.03 34.074) rotate(-90)" fill="#f27111"/>
+          </g>
+          <g id="Group_4" data-name="Group 4" transform="translate(281.523 0)">
+            <rect id="Rectangle_2-2" data-name="Rectangle 2" width="34" height="4" transform="translate(-0.493 0.074)" fill="#f27111"/>
+            <rect id="Rectangle_3-2" data-name="Rectangle 3" width="34" height="4" transform="translate(33.507 34.074) rotate(-90)" fill="#f27111"/>
+          </g>
+        </g>
+        <g id="Group_6" data-name="Group 6" transform="translate(0 300.291)">
+          <g id="Group_3-2" data-name="Group 3">
+            <rect id="Rectangle_2-3" data-name="Rectangle 2" width="34" height="4" transform="translate(4.03 29.783)" fill="#f27111"/>
+            <rect id="Rectangle_3-3" data-name="Rectangle 3" width="34" height="4" transform="translate(4.03 -0.217) rotate(90)" fill="#f27111"/>
+          </g>
+          <g id="Group_4-2" data-name="Group 4" transform="translate(281.523)">
+            <rect id="Rectangle_2-4" data-name="Rectangle 2" width="34" height="4" transform="translate(-0.493 29.783)" fill="#f27111"/>
+            <rect id="Rectangle_3-4" data-name="Rectangle 3" width="34" height="4" transform="translate(37.507 -0.217) rotate(90)" fill="#f27111"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

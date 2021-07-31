@@ -17,9 +17,8 @@ class FlutterRouter extends _i1.RootStackRouter {
   final Map<String, _i1.PageFactory> pagesMap = {
     DashboardRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
-        builder: (data) {
-          final args = data.argsAs<DashboardRouteArgs>();
-          return _i3.DashboardPage(key: args.key, title: args.title);
+        builder: (_) {
+          return _i3.DashboardPage();
         })
   };
 
@@ -28,18 +27,8 @@ class FlutterRouter extends _i1.RootStackRouter {
       [_i1.RouteConfig(DashboardRoute.name, path: '/')];
 }
 
-class DashboardRoute extends _i1.PageRouteInfo<DashboardRouteArgs> {
-  DashboardRoute({_i2.Key? key, required String title})
-      : super(name,
-            path: '/', args: DashboardRouteArgs(key: key, title: title));
+class DashboardRoute extends _i1.PageRouteInfo {
+  const DashboardRoute() : super(name, path: '/');
 
   static const String name = 'DashboardRoute';
-}
-
-class DashboardRouteArgs {
-  const DashboardRouteArgs({this.key, required this.title});
-
-  final _i2.Key? key;
-
-  final String title;
 }

@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatefulWidget {
-  DashboardPage({Key? key, required this.title}) : super(key: key);
+import '../../app_theme.dart';
 
-  final String title;
+class DashboardPage extends StatefulWidget {
+  // DashboardPage({Key? key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -11,6 +12,8 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   int _counter = 0;
+  final numbers = new List<String>.generate(7, (i) => "Trip folder ${i + 10}");
+  int selectedIndex = -1;
 
   void _incrementCounter() {
     setState(() {
@@ -22,67 +25,115 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: accentColor,
+        title: Text('MailBook'),
       ),
       body: Center(
         child: Row(
           children: [
-            SizedBox(
+            Container(
+              color: paleGrey,
               width: 300,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Expanded(
-                    flex: 6, // 60% of space => (6/(6 + 4))
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Winter trip',
-                          ),
-                          Text(
-                            'Summer trip',
-                          ),
-                          Text(
-                            'Autumn trip',
-                          ),
-                        ],
-                      ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 18, left: 10),
+                      child: Text('Available folders',  style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        ),),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.teal, width: 2.0)))),
-                    child: Text('New Folder'),
-                    onPressed: () {},
+                  Expanded(
+                    flex: 6,
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(right: 10, top: 2),
+                        itemCount: numbers.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                              elevation: 2,
+                              child: ClipPath(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          right: BorderSide(
+                                              color: selectedIndex == index
+                                                  ? Colors.white
+                                                  : accentColor,
+                                              width: 5))),
+                                  child: ListTile(
+                                    selected:
+                                        selectedIndex == index ? true : false,
+                                    selectedTileColor: selectedIndex == index
+                                        ? accentColor
+                                        : Colors.white,
+                                    title: Text(
+                                      numbers[index],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: selectedIndex == index
+                                            ? whiteColor
+                                            : greyDarken,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        selectedIndex = index;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                clipper: ShapeBorderClipper(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(3))),
+                              ));
+                        }),
                   ),
-
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(accentColor),
+                        foregroundColor:  MaterialStateProperty.all(whiteColor),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      ))),
+                      child: Text('Add Folder'),
+                      onPressed: () {},
+                    ),
+                  ),
                 ],
               ),
             ),
-            Container(width: 2,color: Colors.black45,height: MediaQuery.of(context).size.height,),
-            Column(
-
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
+            Container(
+              width: 2,
+              color: Colors.black45,
+              height: MediaQuery.of(context).size.height,
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Nothing to show yet',
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: accentColor,
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: 'Create new message',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );

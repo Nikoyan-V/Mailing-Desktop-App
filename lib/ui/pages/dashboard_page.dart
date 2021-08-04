@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mailing_desktop/data/repository/login_repository.dart';
 
 import '../../app_theme.dart';
 
 class DashboardPage extends StatefulWidget {
-  // DashboardPage({Key? key}) : super(key: key);
+   DashboardPage({Key? key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -14,11 +15,17 @@ class _DashboardPageState extends State<DashboardPage> {
   int _counter = 0;
   final numbers = new List<String>.generate(7, (i) => "Trip folder ${i + 10}");
   int selectedIndex = -1;
-
+  LoginRepository loginRepository =LoginRepository();
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loginRepository.fetchEmail();
   }
 
   @override

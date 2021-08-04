@@ -7,9 +7,8 @@ import '../helpers/storage_helper.dart';
 
 Dio initDio() {
   final options = BaseOptions(
-
-     baseUrl: 'https://local-and-loyal.azurewebsites.net/api',
-   // baseUrl: 'https://local-and-loyal.herokuapp.com/api',
+    baseUrl: 'https://local-and-loyal.azurewebsites.net/api',
+    // baseUrl: 'https://local-and-loyal.herokuapp.com/api',
   );
 
   return Dio(options)

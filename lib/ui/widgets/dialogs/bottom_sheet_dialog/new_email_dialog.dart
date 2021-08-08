@@ -28,10 +28,11 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            height: screenHeight(context) * .8,
+            width: screenWidth(context) * .3,
+            height: screenHeight(context) * .5,
             decoration: BoxDecoration(
               color: white,
               boxShadow: [
@@ -86,16 +87,19 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
                       fieldName: 'Text',
                       hintText: '...',
                     ),
-                    CommonButton(
-                      text: 'Send',
-                      callback: () => dashboardState
-                          .sendEmail(
-                              sendingAddressController.text,
-                              'nikoyanvarsik@gmail.com',
-                              snippetController.text,
-                              subjectController.text)
-                          .then((value) => AutoRouter.of(context).pop()),
-                      color: orangeColor,
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: CommonButton(
+                        text: 'Send',
+                        callback: () => dashboardState
+                            .sendEmail(
+                                sendingAddressController.text,
+                                'nikoyanvarsik@gmail.com',
+                                snippetController.text,
+                                subjectController.text)
+                            .then((value) => AutoRouter.of(context).pop()),
+                        color: accentColor,
+                      ),
                     ),
                   ],
                 ),

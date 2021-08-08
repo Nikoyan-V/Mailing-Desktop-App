@@ -35,7 +35,7 @@ abstract class _DashboardState with Store {
 
   @action
   Future<void> fetchEmails() async {
-    loadingState.stopLoading();
+    loadingState.startLoading();
     emails.clear();
     var emailList = await dashboardRepository.fetchEmail(currentFolder);
     emails.addAll(emailList);
@@ -45,14 +45,14 @@ abstract class _DashboardState with Store {
   @action
   Future<void> sendEmail(String to, String from, String plainText,
       String subject) async {
-    loadingState.stopLoading();
+    loadingState.startLoading();
     await dashboardRepository.sendEmail(to, from, plainText, currentFolder, subject);
     loadingState.stopLoading();
   }
 
   @action
   void setCurrentFolder(String folder)  {
-    loadingState.stopLoading();
+    loadingState.startLoading();
     currentFolder = folder;
     loadingState.stopLoading();
   }

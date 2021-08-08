@@ -29,7 +29,8 @@ class _ResetPasswordTypeEmailDialogState
         borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        height: 200,
+        height: 400,
+        width: 600,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -45,13 +46,16 @@ class _ResetPasswordTypeEmailDialogState
             const SizedBox(
               height: 30,
             ),
-            CommonButton(
-              horizontalPadding: 20,
-              callback: () async {
-                dashboardState.addFolder(folderNameController.text);
-              },
-              text: 'OK',
-              color: commonButtonColor,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: CommonButton(
+                horizontalPadding: 20,
+                callback: () async {
+                  dashboardState.addFolder(folderNameController.text);
+                },
+                text: 'OK',
+                color: commonButtonColor,
+              ),
             )
           ],
         ),

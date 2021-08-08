@@ -22,7 +22,7 @@ class UnderlinedTextInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 66,
+      height: 120,
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: padding,
       child: Column(

@@ -18,6 +18,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final dashboardState = GetIt.I<DashboardState>();
+  int selectedIndex = -1;
 
   @override
   void initState() {
@@ -67,20 +68,15 @@ class _DashboardPageState extends State<DashboardPage> {
                                     decoration: BoxDecoration(
                                         border: Border(
                                             right: BorderSide(
-                                                color: dashboardState
-                                                            .currentFolder ==
-                                                        dashboardState
-                                                            .folders[index]
+                                                color: selectedIndex == index
                                                     ? Colors.white
                                                     : accentColor,
                                                 width: 5))),
                                     child: Observer(
                                       builder: (_) => ListTile(
-                                        selected: dashboardState
-                                                    .currentFolder ==
-                                                dashboardState.folders[index]
-                                            ? true
-                                            : false,
+                                        selected:
+                                        selectedIndex == index ? true : false,
+
                                         selectedTileColor: dashboardState
                                                     .currentFolder ==
                                                 dashboardState.folders[index]
@@ -98,10 +94,12 @@ class _DashboardPageState extends State<DashboardPage> {
                                           ),
                                         ),
                                         onTap: () {
-                                          //  dashboardState.setCurrentFolder(dashboardState.folders[index]);
                                           dashboardState.currentFolder =
                                               dashboardState.folders[index];
                                           dashboardState.fetchEmails();
+                                          setState(() {
+                                            selectedIndex = index;
+                                          });
                                         },
                                       ),
                                     ),
@@ -141,11 +139,11 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             Observer(
-              builder: (_) => Stack(
-                children: [
-                  !dashboardState.loadingState.loading
-                      ? Expanded(
-                          child: ListView.builder(
+              builder: (_) => Expanded(
+                      child: Stack(
+                        children: [
+                          dashboardState.emails.isNotEmpty ?
+                          ListView.builder(
                               padding: EdgeInsets.only(right: 10, top: 2),
                               itemCount: dashboardState.emails.length,
                               itemBuilder: (context, index) {
@@ -189,13 +187,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 fontWeight: FontWeight.w600,
                                                 color: accentColor),
                                           ),
-                                          // onTap: () {
-                                          //   setState(() {
-                                          //     dashboardState.currentFolder =
-                                          //         dashboardState.folders[index];
-                                          //     dashboardState.fetchEmails();
-                                          //   });
-                                          // },
                                         ),
                                       ),
                                       clipper: ShapeBorderClipper(
@@ -203,11 +194,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                               borderRadius:
                                                   BorderRadius.circular(3))),
                                     ));
-                              }),
-                        )
-                      : Loading(),
-                ],
-              ),
+                              }):Visibility(child: Center(child: Text('Folder is empty'),), visible: !dashboardState.loadingState.loading,),
+                          if(dashboardState.loadingState.loading)
+                              Loading()
+                        ],
+                      ),
+                    )
+              ,
             ),
           ],
         ),

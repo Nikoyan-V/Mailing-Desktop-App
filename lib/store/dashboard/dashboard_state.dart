@@ -19,11 +19,11 @@ abstract class _DashboardState with Store {
   ObservableList<EmailModel> emails = <EmailModel>[].asObservable();
 
   ObservableList<String> folders = <String>[
-    'Trip to UK',
-    'Trip to USA',
-    'Trip to Tenerife',
-    'Trip to Austria',
-    'Lovely trip to Ireland'
+    'UK',
+    'USA',
+    'Tenerife',
+    'Austria',
+    'Ireland'
   ].asObservable();
 
   @action
@@ -47,6 +47,13 @@ abstract class _DashboardState with Store {
       String subject) async {
     loadingState.stopLoading();
     await dashboardRepository.sendEmail(to, from, plainText, currentFolder, subject);
+    loadingState.stopLoading();
+  }
+
+  @action
+  void setCurrentFolder(String folder)  {
+    loadingState.stopLoading();
+    currentFolder = folder;
     loadingState.stopLoading();
   }
 }

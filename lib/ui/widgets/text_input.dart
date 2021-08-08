@@ -41,7 +41,6 @@ class TextInput extends StatelessWidget {
               obscureText: isObscure,
               focusNode: focusNode,
               textAlign: TextAlign.center,
-              onChanged: (input) => onChanged!(input),
               textInputAction: textInputAction,
               decoration: InputDecoration(
                 isCollapsed: true,

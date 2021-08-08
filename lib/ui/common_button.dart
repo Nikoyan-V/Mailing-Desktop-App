@@ -28,12 +28,13 @@ class CommonButton extends StatelessWidget {
                   side: BorderSide(color: color)))),
       child: Padding(
         padding:
-            EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 6),
-        child: Text(
-          text,
-          maxLines: 1,
-          style: const TextStyle(
-              color: white, fontWeight: FontWeight.w700, fontSize: 20),
+            EdgeInsets.only(top: 15, bottom: 14),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(
+                color: white, fontWeight: FontWeight.w600, fontSize: 18),
+          ),
         ),
       ),
     );

@@ -12,14 +12,13 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: accentColor.withOpacity(0.8),
         height: screenHeight(context),
         child: const Center(
           child: SizedBox(
             width: 32,
             height: 32,
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(orangeColor),
+              valueColor: AlwaysStoppedAnimation<Color>(accentColor),
             ),
           ),
         ),

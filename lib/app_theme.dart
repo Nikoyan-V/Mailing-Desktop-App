@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 const primaryColor = Color(0xFF25292f);
-const accentColor = Color(0xFF6ac610);
+const accentColor = Color(0xFF4267B2);
 
 const greyColor = Color(0xFFE6E6E6);
 const navigationBarGreyColor = Color(0xFFF7F7F7);

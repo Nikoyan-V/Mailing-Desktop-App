@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mailing_desktop/store/dashboard/dashboard_state.dart';
 import 'package:mailing_desktop/ui/widgets/dialogs/bottom_sheet_dialog/new_email_dialog.dart';
 import 'package:mailing_desktop/ui/widgets/dialogs/reset_password_type_email_dialog.dart';
+import 'package:mailing_desktop/ui/widgets/loading.dart';
 
 import '../../app_theme.dart';
 
@@ -68,34 +69,38 @@ class _DashboardPageState extends State<DashboardPage> {
                                             right: BorderSide(
                                                 color: dashboardState
                                                             .currentFolder ==
-                                                    dashboardState.folders[index]
+                                                        dashboardState
+                                                            .folders[index]
                                                     ? Colors.white
                                                     : accentColor,
                                                 width: 5))),
                                     child: Observer(
-                                      builder: (_)=> ListTile(
-                                        selected: dashboardState.currentFolder ==
+                                      builder: (_) => ListTile(
+                                        selected: dashboardState
+                                                    .currentFolder ==
                                                 dashboardState.folders[index]
                                             ? true
                                             : false,
-                                        selectedTileColor:
-                                            dashboardState.currentFolder == dashboardState.folders[index]
-                                                ? accentColor
-                                                : Colors.white,
+                                        selectedTileColor: dashboardState
+                                                    .currentFolder ==
+                                                dashboardState.folders[index]
+                                            ? accentColor
+                                            : Colors.white,
                                         title: Text(
                                           dashboardState.folders[index],
                                           style: TextStyle(
                                             fontWeight: FontWeight.w600,
-                                            color: dashboardState.currentFolder ==
-                                                    index
-                                                ? whiteColor
-                                                : greyDarken,
+                                            color:
+                                                dashboardState.currentFolder ==
+                                                        index
+                                                    ? whiteColor
+                                                    : greyDarken,
                                           ),
                                         ),
                                         onTap: () {
-                                        //  dashboardState.setCurrentFolder(dashboardState.folders[index]);
+                                          //  dashboardState.setCurrentFolder(dashboardState.folders[index]);
                                           dashboardState.currentFolder =
-                                          dashboardState.folders[index];
+                                              dashboardState.folders[index];
                                           dashboardState.fetchEmails();
                                         },
                                       ),
@@ -135,60 +140,73 @@ class _DashboardPageState extends State<DashboardPage> {
                 ],
               ),
             ),
-
             Observer(
-              builder: (_) => Expanded(
-                child: ListView.builder(
-                    padding: EdgeInsets.only(right: 10, top: 2),
-                    itemCount: dashboardState.emails.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                          elevation: 2,
-                          child: ClipPath(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      right: BorderSide(
-                                          color: accentColor, width: 5))),
-                              child: ListTile(
-                                title: Text(
-                                  dashboardState.emails[index].from!,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: dashboardState.currentFolder == index
-                                        ? whiteColor
-                                        : greyDarken,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  dashboardState.emails[index].snippet!,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: dashboardState.currentFolder == index
-                                        ? whiteColor
-                                        : greyDarken,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  dashboardState.emails[index].date!.toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: accentColor),
-                                ),
-                                // onTap: () {
-                                //   setState(() {
-                                //     dashboardState.currentFolder =
-                                //         dashboardState.folders[index];
-                                //     dashboardState.fetchEmails();
-                                //   });
-                               // },
-                              ),
-                            ),
-                            clipper: ShapeBorderClipper(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(3))),
-                          ));
-                    }),
+              builder: (_) => Stack(
+                children: [
+                  !dashboardState.loadingState.loading
+                      ? Expanded(
+                          child: ListView.builder(
+                              padding: EdgeInsets.only(right: 10, top: 2),
+                              itemCount: dashboardState.emails.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                    elevation: 2,
+                                    child: ClipPath(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                right: BorderSide(
+                                                    color: accentColor,
+                                                    width: 5))),
+                                        child: ListTile(
+                                          title: Text(
+                                            dashboardState.emails[index].from!,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: dashboardState
+                                                          .currentFolder ==
+                                                      index
+                                                  ? whiteColor
+                                                  : greyDarken,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            dashboardState
+                                                .emails[index].snippet!,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: dashboardState
+                                                          .currentFolder ==
+                                                      index
+                                                  ? whiteColor
+                                                  : greyDarken,
+                                            ),
+                                          ),
+                                          trailing: Text(
+                                            dashboardState.emails[index].date!
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: accentColor),
+                                          ),
+                                          // onTap: () {
+                                          //   setState(() {
+                                          //     dashboardState.currentFolder =
+                                          //         dashboardState.folders[index];
+                                          //     dashboardState.fetchEmails();
+                                          //   });
+                                          // },
+                                        ),
+                                      ),
+                                      clipper: ShapeBorderClipper(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(3))),
+                                    ));
+                              }),
+                        )
+                      : Loading(),
+                ],
               ),
             ),
           ],

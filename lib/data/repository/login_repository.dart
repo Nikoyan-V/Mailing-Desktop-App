@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 
-class LoginRepository {
+class DashboardRepository {
   // final dio = GetIt.I<Dio>();
   //
   // Future<LoginResponseModel> login(String email, String password) async {

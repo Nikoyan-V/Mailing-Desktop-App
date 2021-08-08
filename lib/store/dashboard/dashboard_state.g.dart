@@ -9,33 +9,25 @@ part of 'dashboard_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$DashboardState on _DashboardState, Store {
-  final _$userModelAtom = Atom(name: '_DashboardState.userModel');
+  final _$emailsAtom = Atom(name: '_DashboardState.emails');
 
   @override
-  UserModel? get userModel {
-    _$userModelAtom.reportRead();
-    return super.userModel;
+  ObservableList<EmailModel> get emails {
+    _$emailsAtom.reportRead();
+    return super.emails;
   }
 
   @override
-  set userModel(UserModel? value) {
-    _$userModelAtom.reportWrite(value, super.userModel, () {
-      super.userModel = value;
+  set emails(ObservableList<EmailModel> value) {
+    _$emailsAtom.reportWrite(value, super.emails, () {
+      super.emails = value;
     });
-  }
-
-  final _$getMemberByEmailAsyncAction =
-      AsyncAction('_DashboardState.getMemberByEmail');
-
-  @override
-  Future<void> getMemberByEmail() {
-    return _$getMemberByEmailAsyncAction.run(() => super.getMemberByEmail());
   }
 
   @override
   String toString() {
     return '''
-userModel: ${userModel}
+emails: ${emails}
     ''';
   }
 }

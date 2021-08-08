@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mailing_desktop/data/repository/login_repository.dart';
+import 'package:mailing_desktop/model/email/email_model.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../helpers/storage_helper.dart';
@@ -48,31 +49,31 @@ abstract class _DashboardState with Store {
   // ObservableList<RegionModel> regions = <RegionModel>[].asObservable();
   //
   @observable
-  ObservableList<Email> filteredList = <DealModel>[].asObservable();
+  ObservableList<EmailModel> emails = <EmailModel>[].asObservable();
 
 
 
 
-  @action
-  Future<void> getMemberByEmail() async {
-    loadingState.startLoading();
-    try {
-      final email = await StorageHelper.getEmail();
-      final res = await dashboardRepository.getByEmail(email);
-      userModel = res;
-      print('seeelllecttt ${userModel.toString()}');
-    } on DioError catch (e) {
-      final Map<String, dynamic> map = jsonDecode(e.response!.data);
-
-        showCustomOverlayNotification(
-          color: Colors.red,
-          text: map['detail'],
-        );
-      return Future.error(e.response!.data('detail'));
-    } finally {
-      loadingState.stopLoading();
-    }
-  }
+  // @action
+  // Future<void> getMemberByEmail() async {
+  //   loadingState.startLoading();
+  //   try {
+  //     final email = await StorageHelper.getEmail();
+  //     final res = await dashboardRepository.getByEmail(email);
+  //     userModel = res;
+  //     print('seeelllecttt ${userModel.toString()}');
+  //   } on DioError catch (e) {
+  //     final Map<String, dynamic> map = jsonDecode(e.response!.data);
+  //
+  //       showCustomOverlayNotification(
+  //         color: Colors.red,
+  //         text: map['detail'],
+  //       );
+  //     return Future.error(e.response!.data('detail'));
+  //   } finally {
+  //     loadingState.stopLoading();
+  //   }
+  // }
 
 
   //

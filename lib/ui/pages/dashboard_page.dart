@@ -213,7 +213,7 @@ class _DashboardPageState extends State<DashboardPage> {
             context: context,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
-            builder: (context) => Observer(builder: (_) => NewEmailDialog()),
+            builder: (context) =>NewEmailDialog(),
           ),
           tooltip: 'Create new message',
           child: Icon(Icons.add),

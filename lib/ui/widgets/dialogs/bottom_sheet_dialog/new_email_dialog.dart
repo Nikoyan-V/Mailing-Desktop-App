@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:filepicker_windows/filepicker_windows.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mailing_desktop/helpers/screen_size_accessor.dart';
 import 'package:mailing_desktop/store/dashboard/dashboard_state.dart';
@@ -24,15 +28,15 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
   TextEditingController subjectController = TextEditingController();
   TextEditingController snippetController = TextEditingController();
   final dashboardState = GetIt.I<DashboardState>();
-
+  File? selectedFile;
   @override
   Widget build(BuildContext context) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            width: screenWidth(context) * .3,
-            height: screenHeight(context) * .5,
+            width: screenWidth(context) * .4,
+            height: screenHeight(context) * .7,
             decoration: BoxDecoration(
               color: white,
               boxShadow: [
@@ -67,7 +71,7 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextInput(
                       controller: sendingAddressController,
@@ -87,6 +91,30 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
                       fieldName: 'Text',
                       hintText: '...',
                     ),
+                  GestureDetector(child: Row(children: [Icon(Icons.attach_file), Text('Add attachment', style: TextStyle(overflow: TextOverflow.ellipsis),) , SizedBox(width: 40,),Text(selectedFile==null? '' : selectedFile!.path.split('\\').last) ],), onTap: () {
+                        var file = OpenFilePicker()
+                          ..filterSpecification = {
+                            'Word Document (*.doc)': '*.doc',
+                            'Web Page (*.htm; *.html)': '*.htm;*.html',
+                            'Text Document (*.txt)': '*.txt',
+                            'All Files': '*.*'
+                          }
+                          ..defaultFilterIndex = 0
+                          ..defaultExtension = 'doc'
+                          ..title = 'Select a document';
+
+                        final result = file.getFile();
+                        if (result != null) {
+                         // dashboardState.file = file.getFile();
+                           selectedFile = File(result.path);
+                           setState(() {
+
+                           });
+                          //dashboardState.file = dashboardState.file!;
+                        // print('aaaaaaaaaa ${file.}');
+                        }},),
+                    SizedBox(height: 40,),
+
                     Align(
                       alignment: Alignment.bottomRight,
                       child: CommonButton(
@@ -96,11 +124,12 @@ class _NewEmailDialogState extends State<NewEmailDialog> {
                                 sendingAddressController.text,
                                 'nikoyanvarsik@gmail.com',
                                 snippetController.text,
-                                subjectController.text)
+                                subjectController.text,selectedFile, selectedFile==null? null: selectedFile!.path)
                             .then((value) => AutoRouter.of(context).pop()),
                         color: accentColor,
                       ),
                     ),
+
                   ],
                 ),
               ),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mailing_desktop/data/repository/dashboard_repository.dart';
 import 'package:mailing_desktop/model/email/email_model.dart';
 import 'package:mobx/mobx.dart';
@@ -14,6 +17,9 @@ abstract class _DashboardState with Store {
 
   @observable
   String currentFolder = '';
+
+  @observable
+  File? file;
 
   @observable
   ObservableList<EmailModel> emails = <EmailModel>[].asObservable();
@@ -44,9 +50,25 @@ abstract class _DashboardState with Store {
 
   @action
   Future<void> sendEmail(String to, String from, String plainText,
-      String subject) async {
+      String subject, File? attachment, String? attachmentName) async {
     loadingState.startLoading();
-    await dashboardRepository.sendEmail(to, from, plainText, currentFolder, subject);
+    if(attachment!=null)
+      {
+        Future<void> uploadFile() async {
+          var byteArray= file!.readAsBytes();
+          final formData = FormData.fromMap({
+            'file': MultipartFile.fromBytes(
+              await file!.readAsBytes(),
+              filename: file!.path,
+            ),
+          });
+
+         // final res = await dio.post('/file', data: formData);
+
+       //   return MessageFile.fromJson(res.data);
+        }
+      }
+    await dashboardRepository.sendEmail(to, from, plainText, currentFolder, subject, attachment, attachmentName);
     loadingState.stopLoading();
   }
 

@@ -142,6 +142,7 @@ class _DashboardPageState extends State<DashboardPage> {
               builder: (_) => Expanded(
                       child: Stack(
                         children: [
+                          dashboardState.emails.isNotEmpty ?
                           ListView.builder(
                               padding: EdgeInsets.only(right: 10, top: 2),
                               itemCount: dashboardState.emails.length,
@@ -193,7 +194,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                               borderRadius:
                                                   BorderRadius.circular(3))),
                                     ));
-                              }),
+                              }):Visibility(child: Center(child: Text('Folder is empty'),), visible: !dashboardState.loadingState.loading,),
                           if(dashboardState.loadingState.loading)
                               Loading()
                         ],

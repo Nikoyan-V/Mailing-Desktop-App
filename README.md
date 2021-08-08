@@ -4,13 +4,20 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+The most necessary commands to run this app.
+Download android studio and visual studio.
+Install the latest version of flutter on android studio.
+run ```flutter config --enable-windows-desktop``` after which you will be able to run it on windows app simulator.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+run ```flutter doctor -v``` to make sure that everything is properly installed.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Go to your desired folder and clone the project from gitHub.
+```git clone gitHubUrl```
+
+After project is clones run in the terminal ```flutter pub get```
+
+Don't forget to add dart and flutter plugins to your project before running it the first time.
+
+

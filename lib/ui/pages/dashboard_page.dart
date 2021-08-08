@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mailing_desktop/data/repository/login_repository.dart';
 
 import '../../app_theme.dart';
 
 class DashboardPage extends StatefulWidget {
-  // DashboardPage({Key? key}) : super(key: key);
+   DashboardPage({Key? key}) : super(key: key);
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
@@ -14,11 +15,17 @@ class _DashboardPageState extends State<DashboardPage> {
   int _counter = 0;
   final numbers = new List<String>.generate(7, (i) => "Trip folder ${i + 10}");
   int selectedIndex = -1;
-
+  LoginRepository loginRepository =LoginRepository();
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loginRepository.fetchEmail();
   }
 
   @override
@@ -118,12 +125,32 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start                                                                                                                                                                                                                                              ,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    'Nothing to show yet',
-                  ),
+
+                  Card(
+                  elevation: 2,
+                  child: ClipPath(
+                    child: Container(
+                      decoration: BoxDecoration(
+                         ),
+                      child: ListTile(
+
+                        title: Text(
+                          'Merged #4 into main. — You are receiving this because you authored the thread. Reply to this email directly, view it on GitHub, or unsubscribe. Triage notifications on the go with GitHub Mobile for iOS',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+
+                          ),
+                        ),
+                      ),
+                    ),
+                    clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(3))),
+                  ))
                 ],
               ),
             ),

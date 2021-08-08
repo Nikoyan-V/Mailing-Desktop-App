@@ -68,36 +68,37 @@ class _DashboardPageState extends State<DashboardPage> {
                                             right: BorderSide(
                                                 color: dashboardState
                                                             .currentFolder ==
-                                                        index
+                                                    dashboardState.folders[index]
                                                     ? Colors.white
                                                     : accentColor,
                                                 width: 5))),
-                                    child: ListTile(
-                                      selected: dashboardState.currentFolder ==
-                                              dashboardState.folders[index]
-                                          ? true
-                                          : false,
-                                      selectedTileColor:
-                                          dashboardState.currentFolder == index
-                                              ? accentColor
-                                              : Colors.white,
-                                      title: Text(
-                                        dashboardState.folders[index],
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: dashboardState.currentFolder ==
-                                                  index
-                                              ? whiteColor
-                                              : greyDarken,
+                                    child: Observer(
+                                      builder: (_)=> ListTile(
+                                        selected: dashboardState.currentFolder ==
+                                                dashboardState.folders[index]
+                                            ? true
+                                            : false,
+                                        selectedTileColor:
+                                            dashboardState.currentFolder == dashboardState.folders[index]
+                                                ? accentColor
+                                                : Colors.white,
+                                        title: Text(
+                                          dashboardState.folders[index],
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: dashboardState.currentFolder ==
+                                                    index
+                                                ? whiteColor
+                                                : greyDarken,
+                                          ),
                                         ),
-                                      ),
-                                      onTap: () {
-                                        setState(() {
+                                        onTap: () {
+                                        //  dashboardState.setCurrentFolder(dashboardState.folders[index]);
                                           dashboardState.currentFolder =
-                                              dashboardState.folders[index];
+                                          dashboardState.folders[index];
                                           dashboardState.fetchEmails();
-                                        });
-                                      },
+                                        },
+                                      ),
                                     ),
                                   ),
                                   clipper: ShapeBorderClipper(
@@ -134,71 +135,61 @@ class _DashboardPageState extends State<DashboardPage> {
                 ],
               ),
             ),
-            Container(
-              width: 2,
-              color: Colors.black45,
-              height: MediaQuery.of(context).size.height,
-            ),
+
             Observer(
-              builder: (_) => ListView.builder(
-                  padding: EdgeInsets.only(right: 10, top: 2),
-                  itemCount: dashboardState.folders.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                        elevation: 2,
-                        child: ClipPath(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    right: BorderSide(
-                                        color: accentColor, width: 5))),
-                            child: ListTile(
-                              selected: dashboardState.currentFolder ==
-                                      dashboardState.folders[index]
-                                  ? true
-                                  : false,
-                              selectedTileColor:
-                                  dashboardState.currentFolder == index
-                                      ? accentColor
-                                      : Colors.white,
-                              title: Text(
-                                dashboardState.emails[index].from!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: dashboardState.currentFolder == index
-                                      ? whiteColor
-                                      : greyDarken,
-                                ),
-                              ),
-                              subtitle: Text(
-                                dashboardState.emails[index].snippet!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: dashboardState.currentFolder == index
-                                      ? whiteColor
-                                      : greyDarken,
-                                ),
-                              ),
-                              trailing: Text(
-                                dashboardState.emails[index].date!.toString(),
-                                style: TextStyle(
+              builder: (_) => Expanded(
+                child: ListView.builder(
+                    padding: EdgeInsets.only(right: 10, top: 2),
+                    itemCount: dashboardState.emails.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          elevation: 2,
+                          child: ClipPath(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      right: BorderSide(
+                                          color: accentColor, width: 5))),
+                              child: ListTile(
+                                title: Text(
+                                  dashboardState.emails[index].from!,
+                                  style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    color: accentColor),
+                                    color: dashboardState.currentFolder == index
+                                        ? whiteColor
+                                        : greyDarken,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  dashboardState.emails[index].snippet!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: dashboardState.currentFolder == index
+                                        ? whiteColor
+                                        : greyDarken,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  dashboardState.emails[index].date!.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: accentColor),
+                                ),
+                                // onTap: () {
+                                //   setState(() {
+                                //     dashboardState.currentFolder =
+                                //         dashboardState.folders[index];
+                                //     dashboardState.fetchEmails();
+                                //   });
+                               // },
                               ),
-                              onTap: () {
-                                setState(() {
-                                  dashboardState.currentFolder =
-                                      dashboardState.folders[index];
-                                  dashboardState.fetchEmails();
-                                });
-                              },
                             ),
-                          ),
-                          clipper: ShapeBorderClipper(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3))),
-                        ));
-                  }),
+                            clipper: ShapeBorderClipper(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(3))),
+                          ));
+                    }),
+              ),
             ),
           ],
         ),

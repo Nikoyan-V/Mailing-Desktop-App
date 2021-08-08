@@ -16,6 +16,6 @@ class LoginRepository {
   // }
  Future<void> fetchEmail() async {
    final res = await dio.get('https://desktop-mail.herokuapp.com/api/email/inbox');
-   print('aaaaaaaaaa ${res.data}');
+   print('log ${res.data}');
  }
 }
